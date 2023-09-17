@@ -1,0 +1,3 @@
+C:/Users/yaros/CLionProjects/module 33.2/cmake-build-debug/CMakeFiles/module_33_2.dir
+C:/Users/yaros/CLionProjects/module 33.2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/yaros/CLionProjects/module 33.2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
