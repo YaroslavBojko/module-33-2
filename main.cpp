@@ -24,6 +24,12 @@ int main() {
 
     field[rand() % 9].fish = new Fish();
 
+    for (int i = 0; i < 3; ++i)
+    {
+        if ((field[rand() % 9].boot) == (field[rand() % 9].fish)) std::cout << "Error";
+        field[rand() % 9].boot = new Boot();
+    }
+
     for (int i = 0; i < 9; ++i)
     {
         std::cout << field[i].fish << " " ;
