@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <exception>
 
 class Fish
 {
@@ -18,6 +19,17 @@ public:
     bool boot;
     bool busy;
 };
+
+void play(Field* field)
+{
+    int sectorNumber;
+    std::cout << "Enter the sector number (from 0 to 8): ";
+    std::cin >> sectorNumber;
+
+    if(field[sectorNumber].fish)
+        throw std::exception();
+
+}
 
 int main() {
     std::srand(time(nullptr));
@@ -55,6 +67,14 @@ int main() {
     }
     std::cout << std::endl;
 
+    try
+    {
+        play(field);
+    }
+    catch (const std::exception& )
+    {
+        std::cout << "Caught a fish!!!" << std::endl;
+    }
 
 
 }
