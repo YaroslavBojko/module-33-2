@@ -16,18 +16,31 @@ class Field
 public:
     bool fish;
     bool boot;
+    bool busy;
 };
 
 int main() {
     std::srand(time(nullptr));
     Field field[9] = {0};
 
-    field[rand() % 9].fish = new Fish();
+    int fieldFish = std::rand() % 9;
+    field[fieldFish].busy = true;
+
+    field[fieldFish].fish = new Fish();
 
     for (int i = 0; i < 3; ++i)
     {
-        if ((field[rand() % 9].boot) == (field[rand() % 9].fish)) std::cout << "Error";
-        field[rand() % 9].boot = new Boot();
+        while (true)
+        {
+            int fieldBoot = std::rand() % 9;
+            if (field[fieldBoot].busy) continue;
+            else
+            {
+                field[fieldBoot].boot = new Boot();
+                field[fieldBoot].busy = true;
+                break;
+            }
+        }
     }
 
     for (int i = 0; i < 9; ++i)
