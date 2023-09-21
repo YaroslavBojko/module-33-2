@@ -26,9 +26,8 @@ void play(Field* field)
     std::cout << "Enter the sector number (from 0 to 8): ";
     std::cin >> sectorNumber;
 
-    if(field[sectorNumber].fish)
-        throw std::exception();
-
+    if(field[sectorNumber].fish || field[sectorNumber].boot)
+        throw std::invalid_argument(field[sectorNumber].fish ? "fish" : "boot");
 }
 
 int main() {
@@ -39,6 +38,8 @@ int main() {
     field[fieldFish].busy = true;
 
     field[fieldFish].fish = new Fish();
+    std::cout << "---------------CLUE---------------" << std::endl;
+    std::cout << "Fish in " << fieldFish << " sector" << std::endl;
 
     for (int i = 0; i < 3; ++i)
     {
@@ -50,22 +51,12 @@ int main() {
             {
                 field[fieldBoot].boot = new Boot();
                 field[fieldBoot].busy = true;
+                std::cout << "Boot in " << fieldBoot << " sector" << std::endl;
                 break;
             }
         }
     }
-
-    for (int i = 0; i < 9; ++i)
-    {
-        std::cout << field[i].fish << " " ;
-    }
-    std::cout << std::endl;
-
-    for (int i = 0; i < 9; ++i)
-    {
-        std::cout << field[i].boot << " " ;
-    }
-    std::cout << std::endl;
+    std::cout << "--------------------------------------" << std::endl;
 
     int count = 0;
     while (true)
@@ -75,12 +66,12 @@ int main() {
         {
             play(field);
         }
-        catch (const std::exception& )
+        catch (const std::invalid_argument& x)
         {
-            std::cout << "Caught a fish!!!" << std::endl;
-            std::cout << "You won in " << count << " attempts!!!" << std::endl;
+            std::cout << "You caught a " << x.what() << " in " << count << " attempts!!!" << std::endl;
             break;
         }
+        std::cout << "The sector is empty!!!" << std::endl;
     }
 
 
