@@ -67,14 +67,22 @@ int main() {
     }
     std::cout << std::endl;
 
-    try
+    int count = 0;
+    while (true)
     {
-        play(field);
+        count++;
+        try
+        {
+            play(field);
+        }
+        catch (const std::exception& )
+        {
+            std::cout << "Caught a fish!!!" << std::endl;
+            std::cout << "You won in " << count << " attempts!!!" << std::endl;
+            break;
+        }
     }
-    catch (const std::exception& )
-    {
-        std::cout << "Caught a fish!!!" << std::endl;
-    }
+
 
 
 }
