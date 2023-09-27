@@ -20,14 +20,25 @@ public:
     bool busy;
 };
 
+class CaughtBoot : public std::exception
+{
+    const char* what() const noexcept override
+    {
+        return "Loss!!!";
+    }
+};
+
+
 void play(Field* field)
 {
     int sectorNumber;
     std::cout << "Enter the sector number (from 0 to 8): ";
     std::cin >> sectorNumber;
 
-    if(field[sectorNumber].fish || field[sectorNumber].boot)
-        throw std::invalid_argument(field[sectorNumber].fish ? "fish" : "boot");
+    if(field[sectorNumber].fish)
+        throw field->fish;
+    if (field[sectorNumber].boot)
+        throw CaughtBoot();
 }
 
 int main() {
@@ -66,9 +77,16 @@ int main() {
         {
             play(field);
         }
-        catch (const std::invalid_argument& x)
+        catch (const bool& x)
         {
-            std::cout << "You caught a " << x.what() << " in " << count << " attempts!!!" << std::endl;
+            std::cout << "Victory!!!" << std::endl;
+            std::cout << "You caught a fish  in " << count << " attempts!!!" << std::endl;
+            break;
+        }
+        catch (const CaughtBoot& cb)
+        {
+            std::cout << "Loss!!!" << std::endl;
+            std::cout << "You caught a boot  in " << count << " attempts!!!" << std::endl;
             break;
         }
         std::cout << "The sector is empty!!!" << std::endl;
